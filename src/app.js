@@ -2,7 +2,11 @@ const getForecast = require('../../weather-app/app')
 const express = require('express')
 const path = require('path')
 const hbs = require('hbs')
+const geocode = require('./utils/geocode')
+const forecast = require('./utils/forecast')
+
 const app = express()
+const port = process.env.PORT || 3000
 
 // Define paths for express config
 publicDirectoryPath = path.join(__dirname, '../public')
@@ -38,12 +42,26 @@ app.get('/weather', (req, res) => {
             error: 'Adress has not been provided!'
         })
     }
-    getForecast(req.query.address, res)
-    // res.send({
-    //     forecast: 'It is snowing',
-    //     location: 'Philadelphia',
-    //     address: req.query.address
-    // })
+    geocode(req.query.address, (error, { latitude, longitude, location } = {}) => {
+        console.log(req.query.address)
+        if (error) {
+            return res.send({ error })
+        }
+
+        forecast(latitude, longitude, (error, forecastData) => {
+            if (error) {
+                return res.send({ error })
+            }
+            const {summary, rainChance, temperature} = forecastData 
+
+            res.send({
+                location,
+                summary,
+                temperature,
+                rainChance,
+            })
+        })
+    })
 })
 
 app.get('/help', (req, res) => {
@@ -70,6 +88,6 @@ app.get('*', (req, res) => {
     })
 })
 
-app.listen(3000, () => {
-    console.log('Listening on port 3000')
+app.listen(port, () => {
+    console.log('Listening on port ' + port)
 })
