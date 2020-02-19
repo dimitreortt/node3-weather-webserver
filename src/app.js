@@ -1,4 +1,3 @@
-const getForecast = require('../../weather-app/app')
 const express = require('express')
 const path = require('path')
 const hbs = require('hbs')

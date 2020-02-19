@@ -1,14 +1,5 @@
 console.log('This is the javascript script.')
 
-// fetch('http://localhost:3000/weather?address=boston').then((response) => {
-//     response.json().then((data) => {
-//         if(data.error){
-//             return console.log('Unable to fetch weather data')
-//         }
-//         console.log(data)
-//     })
-// })
-
 const weatherForm = document.querySelector('form')
 const search = document.querySelector('input')
 const errParagraph = document.querySelector('#message1')
