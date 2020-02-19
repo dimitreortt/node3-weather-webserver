@@ -21,9 +21,9 @@ weatherForm.addEventListener('submit', (e) => {
                 return message1.textContent = data.error
             }
             
-            const {location, summary, temperature, rainChance} = data 
+            const {location, summary, temperature, tempMax, tempMin, rainChance} = data 
 
-            const forecast = location + '.\n' + summary + ', ' + temperature + ' Cº and a chance of rain of ' + rainChance 
+            const forecast = location + '.\n' + summary + '. Currently temperature is: ' + temperature + ' Cº. The high for today is: ' + tempMax + ' Cº, with a low of: ' + tempMin + ' Cº. Chance of rain of ' + rainChance + '.'
             //JSON.stringify(data)
             message1.textContent = ''
             message2.textContent = forecast

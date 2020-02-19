@@ -9,8 +9,10 @@ const forecast = (latitude, longitude, callback) => {
         } else if (body.error) {
             callback('Coordinates provided did not match any location!')
         } else {
-            const {currently} = body
+            const {currently, daily} = body
             const {summary, temperature, humidity, precipProbability:rainChance} = currently
+            const {temperatureMax:tempMax, temperatureMin:tempMin} = daily.data[0]
+            console.log(tempMax, tempMin)
             //console.log(currently.summary)
             callback(undefined, {
                 // summary: currently.summary,
@@ -19,6 +21,8 @@ const forecast = (latitude, longitude, callback) => {
                 // rainChance: currently.precipProbability.toLocaleString("en", {style: "percent"})
                 summary,
                 temperature,
+                tempMax,
+                tempMin,
                 rainChance: rainChance.toLocaleString("en", {style: "percent"})
             })
         }

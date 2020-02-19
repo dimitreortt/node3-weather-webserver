@@ -51,12 +51,14 @@ app.get('/weather', (req, res) => {
             if (error) {
                 return res.send({ error })
             }
-            const {summary, rainChance, temperature} = forecastData 
+            const {summary, rainChance, temperature, tempMax, tempMin} = forecastData 
 
             res.send({
                 location,
                 summary,
                 temperature,
+                tempMax,
+                tempMin,
                 rainChance,
             })
         })
